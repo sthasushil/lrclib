@@ -1,0 +1,281 @@
+:root {
+    --rosewater: #f5e0dc;
+    --flamingo: #f2cdcd;
+    --mauve: #cba6f7;
+    --pink: #f5c0ef;
+    --maroon: #eba0ac;
+    --red: #f38ba8;
+    --peach: #fab387;
+    --yellow: #f9e2af;
+    --green: #a6e3a1;
+    --teal: #94e2d5;
+    --sky: #89dceb;
+    --sapphire: #74c7ec;
+    --blue: #89b4fa;
+    --lavender: #b4befe;
+    --text: #cdd6f4; /* Lighter text for better contrast */
+    --subtext1: #bac2de;
+    --subtext0: #a6adc8;
+    --overlay2: #9399b2;
+    --overlay1: #7f849c;
+    --overlay0: #6c7086;
+    --surface2: #585b70;
+    --surface1: #45475a;
+    --surface0: #313244;
+	--base0: #27283a;
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust: #11111b;
+	--darkgreen: #12512A;
+
+    /* Rounded corners and shadows */
+    --border-radius: 15px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+body {
+    font-family: sans-serif; /* Modern font */
+    background-color: var(--crust);
+    color: var(--surface0);
+    /*padding: 20px;*/
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+	justify-content: center;
+    min-height: 100vh; /* Ensure full viewport height */
+}
+
+.wrapper {
+	padding: 20px; /* Or whatever padding you need */
+	min-height: 100vh; /* Ensure the wrapper takes up full viewport height */
+	box-sizing: border-box; /* Include padding in element's total width and height */
+	display: flex;
+	flex-direction: column;
+    align-items: center; /* Center content horizontally */
+	justify-content: center;
+	margin-top: -40px;
+}
+
+h1 {
+    color: var(--mauve);
+    margin-bottom: 20px;
+    cursor: pointer; /* Make h1 clickable */
+	font-size: 4.5lh;
+}
+
+#search-form {
+    display: flex;
+    width: 50vw; /* Adjust width as needed */
+    margin-bottom: 30px;
+	height: 3lh;
+}
+
+input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+	padding-top: 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--surface0);
+    color: var(--text);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
+    outline: none; /* Remove default focus outline */
+	font-size: 1lh;
+}
+
+input[type="text"]::placeholder {
+	color: var(--surface2);
+}
+
+input[type="text"]:hover {
+	background-color: var(--base0);
+}
+
+input[type="text"]:hover::placeholder {
+	color: var(--surface1);
+}
+
+button {
+    background-color: var(--surface0);
+    color: var(--text);
+    padding: 10px 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.2s; /* Smooth transition */
+	font-size:1lh;
+}
+
+button:hover {
+    background-color: var(--base0);
+    color: var(--overlay2);
+}
+
+#results {
+    width: 50vw;
+}
+
+.lyric-item {
+    display: flex;
+	flex-direction: column;
+	background-color: var(--base);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.2s;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Distribute space between elements */
+    
+}
+
+.track-title {
+    font-weight: bold; /* Make the track name bolder */
+	color: var(--text);
+    margin-bottom: 3px; /* Add some space below the title */
+	font-size: 1lh;
+}
+
+.album-info {
+    font-size: smaller; /* Make the info slightly smaller */
+    color: var(--subtext1); /* Use a subtler color */
+}
+
+.track-info { /* Style the Synced/Plain status */
+    font-size: smaller; /* Make the info slightly smaller */
+	margin-bottom: 2px;
+}
+
+.duration {
+	background-color: var(--surface0);
+	color: var(--subtext1);
+	padding: 2.5px 5px;
+	border-radius: 0.25rem;
+	display: inline-block;
+}
+
+#Synced {
+    background-color: var(--darkgreen);
+	color: var(--green);
+	margin-left: 5px;
+	padding: 2.5px 5px;
+	border-radius: 0.25rem;
+	display: inline-block;
+}
+
+#Plain {
+    background-color: var(--surface0);
+	color: var(--subtext1);
+	padding: 2.5px 5px;
+	border-radius: 0.25rem;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.lyric-item:hover {
+    background-color: var(--base0);
+}
+
+#lyrics-display {
+    width: 50vw; /* Adjust as needed */
+    background-color: var(--surface1);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-top: 20px;
+    overflow-x: auto; /* Add horizontal scrollbar if needed */
+    white-space: pre-wrap; /* Preserve whitespace and wrap text */
+}
+
+#lyrics-display button {
+    margin-top: 10px;
+    background-color: var(--teal); /* Different color for download button */
+}
+#lyrics-display button:hover {
+    background-color: var(--green);
+    color: var(--base);
+}
+
+/* Center the content vertically and horizontally within the viewport */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  min-height: 100vh; /* Ensure full viewport height */
+  margin: 0; /* Remove default margins */
+}
+
+/* Optimise for tall devices */
+@media (max-aspect-ratio: 1/1) {
+	:root {
+		--border-radius: 30px;
+	}
+	
+	body {
+		padding-left: 40px;
+	}
+	
+	h1 {
+		margin-bottom: 40px;
+		font-size: 7lh;
+	}
+	
+	#search-form {
+		width: 100vw;
+		height: 6lh;
+		margin-bottom: 60px;
+	}
+	
+	input[type="text"] {
+		font-size: 2lh;
+	}
+	
+	button {
+		font-size: 2lh;
+	}
+	
+	.lyric-item {
+		padding: 25px;
+		margin-bottom: 25px;
+	}
+	
+	#results {
+		width: 100vw;
+	}
+	
+	.track-title {
+		font-size: 3lh;
+		margin-bottom: 9px;
+	}
+	
+	.album-info {
+		font-size: 2.25lh;
+	}
+	
+	.track-info {
+		font-size: 2.25lh;
+		margin-bottom: 5px;
+	}
+	
+	.duration {
+		padding: 7.5px 15px;
+		border-radius: 0.8rem;
+	}
+	
+	#Synced {
+		margin-left: 15px;
+		padding: 7.5px 15px;
+		border-radius: 0.8rem;
+	}
+	
+	#Plain {
+		margin-left: 15px;
+		padding: 7.5px 15px;
+		border-radius: 0.8rem;
+	}
+}
