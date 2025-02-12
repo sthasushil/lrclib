@@ -233,6 +233,8 @@ body {
 	
 	input[type="text"] {
 		font-size: 2lh;
+		padding-left: 25px;
+		padding-right: 25px;
 	}
 	
 	button {
