@@ -27,6 +27,7 @@
     --mantle: #181825;
     --crust: #11111b;
 	--darkgreen: #12512A;
+	--base-transparent: rgba(30,30,46, 0.5);
 
     /* Rounded corners and shadows */
     --border-radius: 15px;
@@ -62,6 +63,7 @@ h1 {
     margin-bottom: 20px;
     cursor: pointer; /* Make h1 clickable */
 	font-size: 4.5lh;
+	margin-right: 25px;
 }
 
 #search-form {
@@ -75,11 +77,11 @@ input[type="text"] {
     flex-grow: 1;
     padding: 10px;
 	padding-top: 12px;
-    border: none;
+    border: 2px solid var(--surface1);
     border-radius: var(--border-radius);
     background-color: var(--surface0);
     color: var(--text);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
+    box-shadow: inset 0px 0px 25px rgba(0, 0, 0, 0.3); /* Inner shadow */
     outline: none; /* Remove default focus outline */
 	font-size: 1lh;
 }
@@ -90,6 +92,12 @@ input[type="text"]::placeholder {
 
 input[type="text"]:hover {
 	background-color: var(--base0);
+	border: 2px solid var(--surface0);
+}
+
+input[type="text"]:focus {
+	background-color: var(--base0);
+	border: 2px solid var(--surface0);
 }
 
 input[type="text"]:hover::placeholder {
@@ -120,17 +128,20 @@ button:hover {
 
 .lyric-item {
     display: flex;
-	flex-direction: column;
-	background-color: var(--base);
+    flex-direction: row;
+    background-color: var(--base);
     padding: 10px;
     margin-bottom: 10px;
     border-radius: var(--border-radius);
     cursor: pointer;
     box-shadow: var(--box-shadow);
     transition: background-color 0.2s;
-    display: flex; /* Use flexbox for alignment */
     justify-content: space-between; /* Distribute space between elements */
-    
+    align-items: center; /* Vertically center items */ /* Key addition */
+}
+
+.lyric-item:hover {
+	background-color: var(--base0);
 }
 
 .track-title {
@@ -176,10 +187,6 @@ button:hover {
 	margin-left: 5px;
 }
 
-.lyric-item:hover {
-    background-color: var(--base0);
-}
-
 #lyrics-display {
     width: 50vw; /* Adjust as needed */
     background-color: var(--surface1);
@@ -209,6 +216,163 @@ body {
   min-height: 100vh; /* Ensure full viewport height */
   margin: 0; /* Remove default margins */
 }
+
+.track-details {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Preview Panel Styles */
+.preview-panel {
+    /* Initially hidden, shown via JavaScript to display preview */
+    display: none;
+
+    /* Fixed positioning to cover the entire viewport, creating a modal effect */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the panel precisely */
+
+    /* Full viewport coverage */
+    width: 100%;
+    height: 100%;
+
+    /* Background color using a CSS variable for theming */
+    background-color: var(--base-transparent); /* Assumes --base variable is defined elsewhere (e.g., root or body) */
+
+    /* Ensure panel is on top of all other content */
+    z-index: 100;
+
+    /* Enable vertical scrolling if content exceeds panel height */
+    overflow: auto;
+
+    /* Optional: Add a subtle transition for smoother appearance when panel is shown (e.g., fade-in) */
+    /* transition: opacity 0.3s ease;  Consider adding opacity: 0; initially and opacity: 1; when displayed */
+}
+
+/* --- Preview Content Container Styles --- */
+.preview-content {
+    background-color: var(--mantle); /* Light background for content area */
+
+    /* Margins to center content and provide space from top/bottom of panel */
+    margin: 10% auto; /* 10% top and bottom, auto for horizontal centering */
+
+    padding: 20px; /* Padding inside the content box */
+    border: 1px solid var(--base0); /* Subtle border for content box */
+
+    width: 60%; /* Content width relative to the preview panel */
+    min-height: 50%;
+	max-height: 50%; /* Limit content height to 80% of viewport height */
+    overflow-y: auto; /* Enable vertical scrollbar if content exceeds max height */
+
+    position: relative; /* Required for absolute positioning of close button */
+    border-radius: 8px; /* Rounded corners for a softer look */
+	justify-content: center;
+	align-items: center;
+	box-shadow: -5px 5px 15px black;
+}
+
+.preview-lyrics-header {
+    position: sticky; /* Make the header stick to the top of preview-content during scroll */
+    top: 0%; /* Stick to the top edge of preview-content */
+    background-color: none; /* Match background to preview-content to visually integrate */
+    padding: 0px 0; /* Add some padding to the header itself */
+    margin-bottom: 0px; /* Add some space below the header before the text starts */
+    z-index: 1; /* Ensure header stays on top of the text if needed */
+	border-radius: 0.25rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.preview-lyrics-header-lyrics {
+	flex: 1;
+	text-align:center;
+}
+
+/* --- Preview Lyrics Text Styles --- */
+.preview-lyrics-text {
+    white-space: pre-line; /* Preserve line breaks in lyrics text */
+    font-family: monospace; /* Monospace font for a code-like or consistent text appearance */
+    line-height: 1.4; /* Improved line height for readability */
+	color: var(--text);
+	font-size: 0.9lh;
+}
+
+#preview-plain-lyrics-button {
+	background-color: var(--surface0);
+	border-radius: 0.25rem;
+	color: var(--text);
+}
+
+#preview-plain-lyrics-button:hover,
+#preview-plain-lyrics-button:focus,
+#preview-plain-lyrics-button.active {
+	background-color: var(--base0);
+	color: var(--subtext1);
+}
+
+#preview-synced-lyrics-button {
+	background-color: var(--surface0);
+	border-radius: 0.25rem;
+	color: var(--text);
+}
+
+#preview-synced-lyrics-button:hover,
+#preview-synced-lyrics-button:focus,
+#preview-synced-lyrics-button.active {
+	background-color: var(--base0);
+	color: var(--subtext1);
+}
+
+/* --- Close Button Styles --- */
+.preview-lyrics-header-button {
+	margin-left:auto;
+}
+
+#preview-close-button {
+	margin-left:5%;
+    background: var(--mantle); /* Remove default button background */
+	color: var(--red);
+    border: none; /* Remove default button border */
+    font-size: 20px; /* Size of the close button text/icon */
+    cursor: pointer; /* Indicate interactive element */
+    opacity: 0.6; /* Initially less prominent */
+    transition: opacity 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* --- Close Button Hover Effect --- */
+#preview-close-button:hover {
+    opacity: 1; /* Fully visible on hover */
+	background: var(--base);
+}
+
+.preview-button {
+    padding: 8px 12px;
+    border: none;
+    color: var(--subtext1);
+    background-color: var(--surface0);
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1rem; /* Or your desired font size unit (rem, em, vw, vh) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevent text wrapping */
+    /* overflow: hidden;  Removed or can be replaced with overflow: auto; if needed for extreme cases */
+    min-width: 8vw; /* Or whatever minimum width you want */
+    /* word-wrap: break-word; Removed as we don't want to wrap */
+    min-height: 2vh;
+}
+
+.preview-button:hover {
+	background-color: var(--surface1);
+}
+
+.lyric-item > *:not(.preview-button) { /* Target all children of lyric-item except preview button */
+    margin-right: 10px; /* Add some spacing between text content and button */
+}
+
 
 /* Optimise for tall devices */
 @media (max-aspect-ratio: 1/1) {
@@ -279,5 +443,19 @@ body {
 		margin-left: 15px;
 		padding: 7.5px 15px;
 		border-radius: 0.8rem;
+	}
+	.preview-button {
+		min-width: 20vw;
+		min-height: 5vh;
+		font-size: 2.25lh;
+		border-radius: 0.8rem;
+	}
+	.preview-content {
+		width: 90%;
+		max-height: 85%;
+	}
+	
+	.preview-lyrics-text {
+		font-size: 1lh;
 	}
 }
