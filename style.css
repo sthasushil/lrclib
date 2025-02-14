@@ -35,6 +35,7 @@
 }
 
 body {
+	-webkit-tap-highlight-color: transparent;
     font-family: sans-serif; /* Modern font */
     background-color: var(--crust);
     color: var(--surface0);
