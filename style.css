@@ -458,4 +458,19 @@ body {
 	.preview-lyrics-text {
 		font-size: 1lh;
 	}
+	
+	#preview-plain-lyrics-button {
+		font-size: 2.5lh;
+		border-radius: 0.8rem;
+	}
+	
+	#preview-synced-lyrics-button {
+		font-size: 2.5lh;
+		border-radius: 0.8rem;
+	}
+	
+	#preview-close-button {
+		font-size: 2.5lh;
+		border-radius: 0.8rem;
+	}
 }

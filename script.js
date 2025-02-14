@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function displayLyrics(lyricData) {
-        lyricsDisplayDiv.style.display = 'block'; // Show lyrics display when lyrics are displayed
+        lyricsDisplayDiv.style.display = 'none'; // Show lyrics display when lyrics are displayed
         lyricsDisplayDiv.innerHTML = lyricData.plainLyrics || lyricData.syncedLyrics || "No lyrics available";
 
         let lrcContent = "";
@@ -249,6 +249,14 @@ document.addEventListener('keydown', (event) => {
             previewPanel.style.display = 'none'; // Hide the preview panel
         }
     }
+});
+
+// Add this event listener to close preview panel when clicking outside preview-content
+const previewContent = previewPanel.querySelector('.preview-content'); // Get the preview content element
+document.addEventListener('click', (event) => {
+	if (previewPanel.style.display === 'block' && !previewContent.contains(event.target)) {
+		previewPanel.style.display = 'none'; // Hide the preview panel
+		}
 });
 
 });
