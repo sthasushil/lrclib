@@ -259,4 +259,12 @@ document.addEventListener('click', (event) => {
 		}
 });
 
+// Handle initial URL parameter
+const urlParams = new URLSearchParams(window.location.search);
+const initialSearchTerm = urlParams.get('q');
+if (initialSearchTerm) {
+    searchTermInput.value = initialSearchTerm;
+    searchForm.dispatchEvent(new Event('submit'));
+}
+
 });
